@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biologic Immunomodulator — Access Landscape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f1ede3; --card:#fbfaf6; --ink:#1d1b16; --muted:#8c8475;
+  --line:#ddd6c7; --teal:#1f6f5c; --teal-soft:#cfe2da; --rust:#bd4f29;
+  --rust-soft:#f0d6c8; --gold:#b88a2e; --shadow:rgba(40,34,20,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:'Archivo',sans-serif; line-height:1.5; font-feature-settings:'tnum' 1;
+  background-image:radial-gradient(var(--line) .5px,transparent .5px);
+  background-size:22px 22px;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-family:'Archivo',sans-serif;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 28px 80px}
+
+/* ---------- header ---------- */
+header{border-bottom:2.5px solid var(--ink);padding-bottom:26px;margin-bottom:38px}
+.eyebrow{font-family:'Archivo',sans-serif;font-size:11.5px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--rust);font-weight:600;display:flex;gap:10px;align-items:center}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--rust)}
+h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(34px,5.4vw,62px);
+  line-height:.98;letter-spacing:-.02em;margin:14px 0 12px;max-width:16ch}
+h1 em{font-style:italic;font-weight:500;color:var(--teal)}
+.sub{font-size:15.5px;color:var(--muted);max-width:60ch}
+.sub b{color:var(--ink);font-weight:600}
+
+/* ---------- kpis ---------- */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:34px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 16px 14px;
+  position:relative;overflow:hidden}
+.kpi .v{font-family:'Archivo',sans-serif;font-weight:900;font-size:34px;line-height:1;letter-spacing:-.02em}
+.kpi .l{font-size:11px;color:var(--muted);margin-top:7px;text-transform:uppercase;letter-spacing:.05em;line-height:1.3}
+.kpi.accent .v{color:var(--teal)} .kpi.warn .v{color:var(--rust)}
+.kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--line)}
+.kpi.accent::after{background:var(--teal)} .kpi.warn::after{background:var(--rust)}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center;background:var(--card);
+  border:1px solid var(--line);border-radius:13px;padding:16px 20px;margin-bottom:34px}
+.fg{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fg .cap{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chip{border:1px solid var(--line);background:transparent;border-radius:30px;padding:5px 13px;
+  font-family:'Archivo';font-size:12.5px;font-weight:500;cursor:pointer;color:var(--ink);
+  transition:.15s;white-space:nowrap}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+select{font-family:'Archivo';font-size:13px;border:1px solid var(--line);border-radius:8px;
+  padding:6px 10px;background:var(--paper);color:var(--ink);cursor:pointer}
+.reset{margin-left:auto;font-family:'Archivo',sans-serif;font-size:11.5px;color:var(--rust);
+  background:none;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.08em}
+.reset:hover{text-decoration:underline}
+
+/* ---------- grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px 24px;
+  box-shadow:0 1px 0 var(--shadow)}
+.span6{grid-column:span 6} .span12{grid-column:span 12} .span4{grid-column:span 4}
+.span8{grid-column:span 8}
+.ptitle{font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;letter-spacing:-.015em;margin-bottom:2px}
+.pnote{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.pnote b{color:var(--teal);font-weight:600}
+
+/* svg bits */
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axislab{font-family:'Archivo',sans-serif;font-size:10.5px;fill:var(--muted)}
+.axistitle{font-family:'Archivo',sans-serif;font-size:11.5px;fill:var(--ink);font-weight:600}
+.footnote{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.45;
+  padding-top:10px;border-top:1px solid var(--line)}
+.footnote b{color:var(--ink);font-weight:600}
+.empty{font-size:13px;color:var(--muted);padding:26px 4px;text-align:center;font-style:italic}
+.barlab{font-family:'Archivo',sans-serif;font-size:11px;fill:var(--ink);font-weight:500}
+.bname{font-family:'Archivo';font-size:12.5px;fill:var(--ink);font-weight:500}
+
+/* TB split — HTML bars, fixed px sizes to match page */
+.tbrow{margin-top:18px}
+.tbrow:first-child{margin-top:4px}
+.tbhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.tbname{font-size:13px;font-weight:600;color:var(--ink)}
+.tbn{font-size:12px;color:var(--muted)}
+.tbtrack{background:#0000000a;border-radius:6px;height:26px;overflow:hidden}
+.tbfill{height:100%;border-radius:6px;display:flex;align-items:center;min-width:34px;
+  transition:width .35s ease}
+.tbfill span{color:#fff;font-size:13px;font-weight:600;padding-left:10px}
+.gridline{stroke:var(--line);stroke-width:1}
+.bar{transition:opacity .15s} .bar:hover{opacity:.78}
+
+/* legend / footer */
+.lg{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+.lg span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.lg i{width:13px;height:13px;border-radius:3px;display:inline-block}
+footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);
+  font-family:'Archivo',sans-serif;font-size:11.5px;color:var(--muted);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .span6,.span4,.span8{grid-column:span 12}
+}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Prior Authorization Intelligence · Plaque Psoriasis Biologics</div>
+    <h1>The Access <em>Landscape</em> for Biologic Immunomodulators</h1>
+    <p class="sub">A comparison of <b id="hPolicies">79</b> payer prior-authorization policies, scored on a 0–55 <b>Access Score</b> where higher means fewer barriers to therapy. Filter by drug, specialist, age, TB requirement, step-therapy depth, and access band to see how access shifts.</p>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="filters">
+    <div class="fg"><span class="cap">Drug</span><select id="fBrand"></select></div>
+    <div class="fg"><span class="cap">Specialist</span><select id="fSpec"></select></div>
+    <div class="fg"><span class="cap">Age</span><span id="fAge"></span></div>
+    <div class="fg"><span class="cap">TB&nbsp;Test</span><span id="fTb"></span></div>
+    <div class="fg"><span class="cap">Step&nbsp;depth</span><span id="fSteps"></span></div>
+    <div class="fg"><span class="cap">Access&nbsp;band</span><span id="fAccess"></span></div>
+    <button class="reset" id="reset">↺ Reset filters</button>
+  </div>
+
+  <div class="grid">
+    <div class="panel span6">
+      <div class="ptitle">Access Score distribution</div>
+      <div class="pnote">How many policies fall in each access band. <b id="dMean"></b></div>
+      <div id="histo"></div>
+    </div>
+    <div class="panel span6">
+      <div class="ptitle">Average access by drug</div>
+      <div class="pnote">Mean score per brand · bar width = policy count</div>
+      <div id="byBrand"></div>
+    </div>
+
+    <div class="panel span8">
+      <div class="ptitle">Prevalence of access barriers</div>
+      <div class="pnote">Share of policies imposing each requirement</div>
+      <div id="barriers"></div>
+    </div>
+    <div class="panel span4">
+      <div class="ptitle">TB test &amp; access</div>
+      <div class="pnote">Mean access score, split by TB requirement</div>
+      <div id="tbSplit"></div>
+    </div>
+
+    <div class="panel span6">
+      <div class="ptitle">Step-therapy depth</div>
+      <div class="pnote">Steps required through brand vs. generic agents</div>
+      <div id="steps"></div>
+    </div>
+    <div class="panel span6">
+      <div class="ptitle">Specialist requirement</div>
+      <div class="pnote">Which prescriber types policies mandate</div>
+      <div id="spec"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Source · aashish_kumar_46289_results.csv · <span id="fCount">79</span> policies in view</span>
+    <span>Access Score: 0 = most restrictive · 55 = most open</span>
+  </footer>
+</div>
+
+<script>
+const DATA = [{"brand":"TREMFYA","age":">=18","score":14,"tb":"Y","qty":true,"step_doc":true,"steps_brand":3.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":43,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":31,"tb":"Y","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":42,"tb":"Y","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":47,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":38,"tb":"Y","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":30,"tb":"Y","qty":true,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":18,"tb":"Y","qty":true,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Specialist","init_dur":6,"reauth_dur":6},{"brand":"TREMFYA","age":">=6","score":20,"tb":"Y","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"Yes","spec_req":true,"spec":"Specialist","init_dur":6,"reauth_dur":6},{"brand":"STELARA","age":">=6","score":5,"tb":"Y","qty":true,"step_doc":true,"steps_brand":2.0,"steps_gen":2.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":6},{"brand":"TREMFYA","age":">=18","score":5,"tb":"Y","qty":true,"step_doc":true,"steps_brand":2.0,"steps_gen":2.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":6},{"brand":"STELARA","age":">=6","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=6","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":35,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":31,"tb":"N","qty":false,"step_doc":false,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":22,"tb":"N","qty":true,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Specialist","init_dur":1,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":26,"tb":"Y","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":3,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":35,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":38,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":42,"tb":"Y","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":34,"tb":"Y","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=18","score":47,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":34,"tb":"Y","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=18","score":0,"tb":"Y","qty":false,"step_doc":true,"steps_brand":3.0,"steps_gen":1.0,"photo":"Yes","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":47,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":35,"tb":"N","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":35,"tb":"N","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":30,"tb":"N","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":39,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=18","score":43,"tb":"N","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":null},{"brand":"TREMFYA","age":">=6","score":43,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":null,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":51,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":42,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=6","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":43,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":33,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":2.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":30,"tb":"Y","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":6,"reauth_dur":6},{"brand":"STELARA","age":">=6","score":18,"tb":"Y","qty":true,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":4,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":31,"tb":"Y","qty":true,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":4,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":34,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":3,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":14,"tb":"N","qty":true,"step_doc":true,"steps_brand":2.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":42,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":26,"tb":"N","qty":false,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":34,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":34,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":18,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":43,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=18","score":38,"tb":"Y","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":30,"tb":"Y","qty":true,"step_doc":true,"steps_brand":1.0,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":39,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Gastroenterologist, Rheumatologist","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=6","score":39,"tb":"Y","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Gastroenterologist, Rheumatologist","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":34,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":34,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":31,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"TREMFYA","age":">=6","score":43,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":6,"reauth_dur":12},{"brand":"STELARA","age":">=6","score":31,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":55,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":0.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":12},{"brand":"TREMFYA","age":">=6","score":50,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":12},{"brand":"AMJEVITA","age":">=18","score":39,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"COSENTYX","age":">=6","score":39,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"ENBREL","age":">=4","score":42,"tb":"N","qty":false,"step_doc":true,"steps_brand":0.0,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":12},{"brand":"REMICADE","age":">=18","score":23,"tb":"Y","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":6,"reauth_dur":12},{"brand":"SILIQ","age":">=18","score":31,"tb":"Y","qty":true,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":true,"spec":"Dermatologist","init_dur":4,"reauth_dur":12},{"brand":"CIMZIA","age":">=18","score":43,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"BIMZELX","age":">=18","score":39,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":null},{"brand":"SKYRIZI","age":">=6","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"OTEZLA","age":">=6","score":42,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"YESINTEK","age":">=6","score":39,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Rheumatologist","init_dur":6,"reauth_dur":6},{"brand":"OTULFI","age":">=6","score":26,"tb":"N","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":12},{"brand":"ENBREL","age":">=4","score":47,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":12},{"brand":"ILUMYA","age":">=18","score":25,"tb":"N","qty":true,"step_doc":true,"steps_brand":2.0,"steps_gen":2.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":12},{"brand":"ENBREL","age":">=6","score":42,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"ACITRETIN","age":">=18","score":32,"tb":"N","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":1.0,"photo":"Yes","spec_req":true,"spec":"Dermatologist","init_dur":null,"reauth_dur":null},{"brand":"OTEZLA","age":">=6","score":55,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"Unknown","spec_req":false,"spec":"None specified","init_dur":12,"reauth_dur":12},{"brand":"AMJEVITA","age":">=4","score":39,"tb":"Y","qty":false,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"YESINTEK","age":">=6","score":43,"tb":"Y","qty":true,"step_doc":true,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist","init_dur":12,"reauth_dur":12},{"brand":"TREMFYA","age":">=18","score":47,"tb":"N","qty":false,"step_doc":false,"steps_brand":null,"steps_gen":null,"photo":"No","spec_req":false,"spec":"None specified","init_dur":null,"reauth_dur":null},{"brand":"STELARA","age":">=6","score":19,"tb":"Y","qty":false,"step_doc":true,"steps_brand":2.0,"steps_gen":null,"photo":"No","spec_req":true,"spec":"Dermatologist, Gastroenterologist, Immunologist, Rheumatologist, Colorectal Surgeon","init_dur":6,"reauth_dur":12}];
+const TEAL='#1f6f5c', RUST='#bd4f29', GOLD='#b88a2e', INK='#1d1b16', MUT='#8c8475', LINE='#ddd6c7';
+const SVGNS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+
+// ---- filter state ----
+const state={brand:'All',spec:'All',age:new Set(),tb:new Set(),steps:new Set(),access:new Set()};
+
+// ---- derived classifiers ----
+const SPEC_OF=d=>d.spec_req?d.spec:'None specified';
+function depthBucket(d){
+  if(!d.step_doc) return 'None';
+  const b=d.steps_brand,g=d.steps_gen;
+  if(b==null&&g==null) return 'Unspecified';
+  const t=(b||0)+(g||0);
+  if(t===0) return 'None';
+  return t>=3?'3+':String(t);
+}
+const accessBand=d=>d.score>=40?'Open':d.score>=30?'Moderate':'Restrictive';
+const countWhere=f=>DATA.filter(f).length;
+
+// ---- build filter controls ----
+const brands=[...new Set(DATA.map(d=>d.brand))].sort((a,b)=>
+  countWhere(x=>x.brand===b)-countWhere(x=>x.brand===a));
+const bSel=$('fBrand');
+['All',...brands].forEach(b=>{const o=document.createElement('option');o.value=b;
+  o.textContent=b==='All'?'All drugs':b+' ('+countWhere(x=>x.brand===b)+')';bSel.appendChild(o);});
+bSel.onchange=()=>{state.brand=bSel.value;render();};
+
+// specialist dropdown (long combos abbreviated in the menu)
+const specShort=v=>v.split(',').length>3?`Multi-specialty (${v.split(',').length} types)`:v;
+const specs=[...new Set(DATA.map(SPEC_OF))].sort((a,b)=>
+  countWhere(x=>SPEC_OF(x)===b)-countWhere(x=>SPEC_OF(x)===a));
+const spSel=$('fSpec');
+['All',...specs].forEach(v=>{const o=document.createElement('option');o.value=v;
+  o.textContent=v==='All'?'All specialists':specShort(v)+' ('+countWhere(x=>SPEC_OF(x)===v)+')';
+  spSel.appendChild(o);});
+spSel.onchange=()=>{state.spec=spSel.value;render();};
+
+// chip group: items are [value,label] (or plain string for both)
+function chips(host,items,set){
+  items.forEach(it=>{const [val,label]=Array.isArray(it)?it:[it,it];
+    const b=document.createElement('button');b.className='chip';b.textContent=label;
+    b.onclick=()=>{set.has(val)?set.delete(val):set.add(val);b.classList.toggle('on');render();};
+    host.appendChild(b);});
+}
+chips($('fAge'),[...new Set(DATA.map(d=>d.age))].sort(),state.age);
+chips($('fTb'),[['Y','Required'],['N','Not required']],state.tb);
+chips($('fSteps'),[['None','None'],['1','1 step'],['2','2 steps'],['3+','3+ steps'],['Unspecified','Count n/a']],state.steps);
+chips($('fAccess'),[['Open','Open (40+)'],['Moderate','Moderate (30–39)'],['Restrictive','Restrictive (<30)']],state.access);
+
+$('reset').onclick=()=>{state.brand='All';bSel.value='All';state.spec='All';spSel.value='All';
+  state.age.clear();state.tb.clear();state.steps.clear();state.access.clear();
+  document.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));render();};
+
+function filtered(){
+  return DATA.filter(d=>
+    (state.brand==='All'||d.brand===state.brand)&&
+    (state.spec==='All'||SPEC_OF(d)===state.spec)&&
+    (state.age.size===0||state.age.has(d.age))&&
+    (state.tb.size===0||state.tb.has(d.tb))&&
+    (state.steps.size===0||state.steps.has(depthBucket(d)))&&
+    (state.access.size===0||state.access.has(accessBand(d))));
+}
+
+// ---- svg helpers ----
+function svg(w,h){const s=document.createElementNS(SVGNS,'svg');
+  s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.setAttribute('width','100%');return s;}
+function el(p,t,a,txt){const e=document.createElementNS(SVGNS,t);
+  for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e;}
+function clear(id){$(id).innerHTML='';}
+const mean=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
+
+// ---- KPIs ----
+function kpis(d){
+  const all=DATA;
+  const cards=[
+    {v:d.length,l:'Policies in view'},
+    {v:mean(d.map(x=>x.score)).toFixed(1),l:'Avg access score',c:'accent'},
+    {v:new Set(d.map(x=>x.brand)).size,l:'Distinct drugs'},
+    {v:pct(d,x=>x.tb==='Y')+'%',l:'Require TB test',c:'warn'},
+    {v:pct(d,x=>x.step_doc)+'%',l:'Document step therapy',c:'warn'},
+    {v:pct(d,x=>x.spec_req)+'%',l:'Require specialist'},
+  ];
+  $('kpis').innerHTML=cards.map(c=>
+    `<div class="kpi ${c.c||''}"><div class="v num">${c.v}</div><div class="l">${c.l}</div></div>`).join('');
+}
+const pct=(d,f)=>d.length?Math.round(100*d.filter(f).length/d.length):0;
+
+// ---- histogram ----
+function histo(d){
+  clear('histo');const W=480,H=240,P={l:34,r:14,t:14,b:34};
+  const bins=[[0,10],[10,20],[20,30],[30,40],[40,50],[50,56]];
+  const counts=bins.map(([a,b])=>d.filter(x=>x.score>=a&&x.score<b).length);
+  const max=Math.max(1,...counts);
+  const s=svg(W,H);$('histo').appendChild(s);
+  const bw=(W-P.l-P.r)/bins.length;
+  // gridlines
+  for(let i=0;i<=4;i++){const y=P.t+(H-P.t-P.b)*i/4;
+    el(s,'line',{x1:P.l,x2:W-P.r,y1:y,y2:y,class:'gridline'});
+    el(s,'text',{x:P.l-7,y:y+3,'text-anchor':'end',class:'axislab'},Math.round(max*(4-i)/4));}
+  counts.forEach((c,i)=>{
+    const h=(H-P.t-P.b)*c/max,x=P.l+i*bw+5,y=H-P.b-h;
+    el(s,'rect',{x,y,width:bw-10,height:h,rx:4,fill:TEAL,class:'bar'});
+    if(c)el(s,'text',{x:x+(bw-10)/2,y:y-6,'text-anchor':'middle',class:'barlab'},c);
+    el(s,'text',{x:x+(bw-10)/2,y:H-P.b+16,'text-anchor':'middle',class:'axislab'},bins[i][0]+'–'+(bins[i][1]-1));
+  });
+  el(s,'text',{x:(P.l+W-P.r)/2,y:H-2,'text-anchor':'middle',class:'axislab'},'access score band');
+  $('dMean').textContent='Mean = '+mean(d.map(x=>x.score)).toFixed(1)+' of 55';
+}
+
+// ---- by brand ----
+function byBrand(d){
+  clear('byBrand');
+  if(!d.length){$('byBrand').innerHTML='<p class="empty">No policies match these filters.</p>';return;}
+  const map={};d.forEach(x=>{(map[x.brand]=map[x.brand]||[]).push(x.score);});
+  let rows=Object.entries(map).map(([b,s])=>({b,m:mean(s),n:s.length}))
+    .sort((a,b)=>b.m-a.m);
+  if(rows.length>9){const top=rows.slice(0,9);rows=top;}
+  const W=480,rh=30,P={l:96,r:40,t:6,b:8},H=P.t+P.b+rows.length*rh;
+  const max=55;
+  const s=svg(W,H);$('byBrand').appendChild(s);
+  const aw=W-P.l-P.r;
+  rows.forEach((r,i)=>{
+    const y=P.t+i*rh, bw=aw*r.m/max, h=18;
+    el(s,'text',{x:P.l-8,y:y+h-4,'text-anchor':'end',class:'bname'},r.b);
+    el(s,'rect',{x:P.l,y,width:aw,height:h,rx:4,fill:'#0000000a'});
+    el(s,'rect',{x:P.l,y,width:bw,height:h,rx:4,fill:r.m>=40?TEAL:r.m>=30?GOLD:RUST,class:'bar'});
+    const lab=r.m.toFixed(0)+'  ·  n='+r.n, estW=lab.length*6.2;
+    if(bw+7+estW>aw)  // would spill past the track → place inside the bar
+      el(s,'text',{x:P.l+bw-9,y:y+h-4,'text-anchor':'end',class:'barlab',fill:'#fff'},lab);
+    else
+      el(s,'text',{x:P.l+bw+7,y:y+h-4,class:'barlab'},lab);
+  });
+  $('byBrand').insertAdjacentHTML('beforeend',
+    `<div class="lg"><span><i style="background:${TEAL}"></i>Open access (40+)</span><span><i style="background:${GOLD}"></i>Moderate (30–39)</span><span><i style="background:${RUST}"></i>Restrictive (below 30)</span></div>`);
+}
+
+// ---- barriers ----
+function barriers(d){
+  clear('barriers');
+  const items=[
+    ['Step therapy documented',pct(d,x=>x.step_doc)],
+    ['TB test required',pct(d,x=>x.tb==='Y')],
+    ['Specialist prescriber',pct(d,x=>x.spec_req)],
+    ['Quantity limits',pct(d,x=>x.qty)],
+    ['Phototherapy step',pct(d,x=>x.photo==='Yes')],
+  ].sort((a,b)=>b[1]-a[1]);
+  const W=620,rh=42,P={l:188,r:48,t:6,b:6},H=P.t+P.b+items.length*rh;
+  const s=svg(W,H);$('barriers').appendChild(s);
+  const aw=W-P.l-P.r;
+  items.forEach((it,i)=>{
+    const y=P.t+i*rh,h=20,bw=aw*it[1]/100;
+    el(s,'text',{x:P.l-12,y:y+h-4,'text-anchor':'end',class:'bname'},it[0]);
+    el(s,'rect',{x:P.l,y,width:aw,height:h,rx:5,fill:'#0000000a'});
+    el(s,'rect',{x:P.l,y,width:bw,height:h,rx:5,fill:RUST,class:'bar'});
+    el(s,'text',{x:P.l+bw+8,y:y+h-5,class:'barlab'},it[1]+'%');
+  });
+}
+
+// ---- tb split ----
+function tbSplit(d){
+  const y=d.filter(x=>x.tb==='Y'),n=d.filter(x=>x.tb==='N');
+  const rows=[['No TB test',mean(n.map(x=>x.score)),n.length,TEAL],
+              ['TB test req.',mean(y.map(x=>x.score)),y.length,RUST]];
+  const max=55;
+  $('tbSplit').innerHTML=rows.map(r=>{
+    const w=Math.max(r[2]?100*r[1]/max:0,r[2]?7:0);
+    return `<div class="tbrow">
+      <div class="tbhead"><span class="tbname">${r[0]}</span><span class="tbn">n=${r[2]}</span></div>
+      <div class="tbtrack"><div class="tbfill" style="width:${w}%;background:${r[3]}">
+        <span>${r[2]?r[1].toFixed(1):'—'}</span></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ---- steps ----
+function steps(d){
+  clear('steps');
+  const cat=v=>v==null?'n/a':v>=3?'3+':String(v);
+  const order=['0','1','2','3+','n/a'];
+  function dist(key){const c={};order.forEach(o=>c[o]=0);
+    d.forEach(x=>c[cat(x[key])]++);return order.map(o=>c[o]);}
+  const brand=dist('steps_brand'),gen=dist('steps_gen');
+  const W=480,H=238,P={l:44,r:14,t:18,b:46};
+  const s=svg(W,H);$('steps').appendChild(s);
+  const max=Math.max(1,...brand,...gen);
+  const gw=(W-P.l-P.r)/order.length, bw=gw*0.34;
+  for(let i=0;i<=4;i++){const y=P.t+(H-P.t-P.b)*i/4;
+    el(s,'line',{x1:P.l,x2:W-P.r,y1:y,y2:y,class:'gridline'});
+    el(s,'text',{x:P.l-7,y:y+3,'text-anchor':'end',class:'axislab'},Math.round(max*(4-i)/4));}
+  order.forEach((o,i)=>{
+    const cx=P.l+i*gw+gw/2;
+    [[brand[i],TEAL,-bw-2],[gen[i],GOLD,2]].forEach(([v,col,off])=>{
+      const h=(H-P.t-P.b)*v/max,x=cx+off,y=H-P.b-h;
+      el(s,'rect',{x,y,width:bw,height:h,rx:3,fill:col,class:'bar'});
+      if(v)el(s,'text',{x:x+bw/2,y:y-5,'text-anchor':'middle',class:'barlab'},v);
+    });
+    el(s,'text',{x:cx,y:H-P.b+16,'text-anchor':'middle',class:'axislab'},o);
+  });
+  el(s,'text',{x:(P.l+W-P.r)/2,y:H-16,'text-anchor':'middle',class:'axistitle'},'Number of steps required');
+  el(s,'text',{x:(P.l+W-P.r)/2,y:H-3,'text-anchor':'middle',class:'axislab'},'“3+” grouped · “n/a” = not documented');
+  el(s,'text',{x:13,y:(P.t+H-P.b)/2,'text-anchor':'middle',class:'axistitle',
+    transform:`rotate(-90 13 ${(P.t+H-P.b)/2})`},'Number of policies');
+  $('steps').insertAdjacentHTML('beforeend',
+    `<div class="lg"><span><i style="background:${TEAL}"></i>Steps through brand-name agents</span><span><i style="background:${GOLD}"></i>Steps through generic agents</span></div>`);
+}
+
+// ---- specialist ----
+function spec(d){
+  $('spec').innerHTML='';
+  if(!d.length){$('spec').innerHTML='<p class="empty">No policies match these filters.</p>';return;}
+  const c={};d.forEach(x=>{const k=x.spec_req?x.spec:'None specified';c[k]=(c[k]||0)+1;});
+  let rows=Object.entries(c).map(([k,v])=>({full:k,v})).sort((a,b)=>b.v-a.v);
+  const W=560,LABX=250,LH=16,PERLINE=34,P={r:46,t:8,b:8};
+  const max=Math.max(...rows.map(r=>r.v)), aw=W-P.r-LABX;
+  const foot=[], marks=['*','†','‡'];
+
+  // greedy word-wrap; if it needs >2 lines, footnote it instead
+  function wrap(t){const ws=t.split(/\s+/),ls=[];let cur='';
+    for(const w of ws){const j=cur?cur+' '+w:w;
+      if(j.length>PERLINE&&cur){ls.push(cur);cur=w;}else cur=j;}
+    if(cur)ls.push(cur);return ls;}
+
+  rows.forEach(r=>{
+    let lines=wrap(r.full);
+    if(lines.length>2){
+      const m=marks[foot.length]||'*';
+      foot.push({m,text:r.full});
+      lines=[`Multi-specialty (${r.full.split(',').length} types) ${m}`];
+    }
+    r.lines=lines;
+    r.rowH=Math.max(32,lines.length*LH+12);
+  });
+
+  const H=P.t+P.b+rows.reduce((s,r)=>s+r.rowH,0);
+  const s=svg(W,H);$('spec').appendChild(s);
+  let y=P.t;
+  rows.forEach(r=>{
+    const cy=y+r.rowH/2, h=18, bw=Math.max(aw*r.v/max,3);
+    r.lines.forEach((ln,li)=>
+      el(s,'text',{x:0,y:cy-(r.lines.length-1)*LH/2+li*LH+4,class:'bname'},ln));
+    el(s,'rect',{x:LABX,y:cy-h/2,width:aw,height:h,rx:5,fill:'#0000000a'}); // track / fill form
+    el(s,'rect',{x:LABX,y:cy-h/2,width:bw,height:h,rx:5,
+      fill:r.full.startsWith('None')?MUT:TEAL,class:'bar'});
+    const lab=String(r.v), estW=lab.length*7+10;
+    if(bw+8+estW>aw)
+      el(s,'text',{x:LABX+bw-9,y:cy+4,'text-anchor':'end',class:'barlab',fill:'#fff'},lab);
+    else
+      el(s,'text',{x:LABX+bw+8,y:cy+4,class:'barlab'},lab);
+    y+=r.rowH;
+  });
+  if(foot.length)$('spec').insertAdjacentHTML('beforeend',
+    `<div class="footnote">${foot.map(f=>`<b>${f.m}</b> ${f.text}`).join('<br>')}</div>`);
+}
+
+// ---- master render ----
+function render(){
+  const d=filtered();
+  $('fCount').textContent=d.length;
+  kpis(d);histo(d);byBrand(d);barriers(d);tbSplit(d);steps(d);spec(d);
+}
+render();
+</script>
+</body>
+</html>
